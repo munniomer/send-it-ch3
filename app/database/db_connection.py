@@ -29,5 +29,5 @@ def initialize_db():
         cursor.close()
 
     except (Exception, psycopg2.Error) as error:
-        # returns error when the connectin fails
-        print("Not unable to connect to the database", error)
+        print("Not unable to connect to the database")
+        print(error) # returns error when the connectin fails
