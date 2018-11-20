@@ -15,6 +15,7 @@ def connect_to_db(db_url):
 def initialize_db():
     try:
         """starting the database"""
+        print('Connecting to the PostgreSQL database...')
         connection = connect_to_db(db_url)
 
         """activate cursor"""
