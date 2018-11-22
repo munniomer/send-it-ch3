@@ -26,12 +26,12 @@ def create_tables():
         for query in queries:
             cursor.execute(query)
         conn.commit()
+        conn.close()
+        cursor.close()
 
     except (Exception, psycopg2.Error) as error:
         print("Not unable to create tables", error)
-    finally:
-        conn.close()
-        cursor.close()
+ 
 
 
 def destroy_tables():
@@ -42,8 +42,9 @@ def destroy_tables():
         for table in tablequeries:
             cursor.execute(table)
         conn.commit()
-    except (Exception, psycopg2.Error) as error:
-        print("Not unable to destroy tables", error)
-    finally:
         conn.close()
         cursor.close()
+    except (Exception, psycopg2.Error) as error:
+        print("Not unable to destroy tables", error)
+
+        
