@@ -10,10 +10,10 @@ services:
 - postgresql
 
 before_script:
-- export FLASK_APP = "run.py"
+- export FLASK_APP=run.py
 - psql -c 'create database test_send;' -U postgres
 - export DATABSE_URL="dbname='test_send' host='localhost' port='5432' user='postgres' password= '' "
-- export FLASK_ENV="testing"
+- export FLASK_ENV=testing
 - flask migrate
 
 script: coverage run --source=api -m pytest && coverage report
