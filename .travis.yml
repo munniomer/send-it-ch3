@@ -10,8 +10,8 @@ services:
 - postgresql
 
 before_script:
-- psql -c 'create database send_it;' -U postgres
-- export DATABSE_URL="postgresql://muni:muni@localhost:5432/test_send"
+- psql -c 'create database test_send;' -U postgres
+- export DATABSE_URL="dbname='test_send' host='localhost' port='5432' user='postgres' password= '' "
 
 
 script: coverage run --source=api -m pytest && coverage report
