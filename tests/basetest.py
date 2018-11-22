@@ -181,6 +181,7 @@ class BaseTest(unittest.TestCase):
 
 
     def tearDown(self):
+        """Destroys the tables during testing"""
         destroy_tables()
 
 if __name__ == '__main__':

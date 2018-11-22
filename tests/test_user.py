@@ -114,12 +114,6 @@ class TestUSer(BaseTest):
                       str(respon.data))
     
 
-    #   if not request_data:
-    #             return {"message": "Please provide a json data"}, 400
-    #     if not all(key in request_data for key in ["first_name", "last_name", "username", "email", "password","confirm_password","city","role"]):
-    #         return {"message":"Some fields are missing"}
-
-
 
     
 

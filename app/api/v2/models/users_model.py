@@ -27,8 +27,6 @@ class UserModel(object):
             cursor = self.db.cursor()
             cursor.execute(query, payload)
             self.db.commit()
-              
-            return {"message": "User successfullt created"},201
         except (Exception, psycopg2.Error) as error:
             print(error)
-            return {"message": "Not able to insert in users table"},400
+            return {"message": "Not able to insert in users table"}, 400
