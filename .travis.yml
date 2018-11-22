@@ -4,21 +4,20 @@ python:
  - "3.6"
 
 install:
- - pip3 install -r requirements.txt
+ - pip install -r requirements.txt
+ - pip install coveralls
+ - pip install psycopg2-binary
 
 services:
 - postgresql
 
 before_script:
-- export FLASK_APP = "run.py"
+- export FLASK_ENV=testing
 - psql -c 'create database test_send;' -U postgres
-- export DATABSE_URL="dbname='test_send' host='localhost' port='5432' user='postgres' password= '' "
-- export FLASK_ENV="testing"
-- flask migrate
+- export DATABASE_URL="dbname='test_send' host='localhost' port='5432' user='postgres' password=''"
 
-script: coverage run --source=api -m pytest && coverage report
+ script:
+  - nosetests --with-coverage --cover-package=app
 
 after_success: coveralls
 
-notifications:
- email: false

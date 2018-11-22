@@ -12,6 +12,7 @@ def connect_to_db():
     """making a connection to the db"""
     try:
         print('Connecting to the PostgreSQL database...')
+        print("dddddddddddddddddddd",db_url)
         return psycopg2.connect(db_url)
 
     except (Exception, psycopg2.Error) as error:
