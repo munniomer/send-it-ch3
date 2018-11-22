@@ -10,10 +10,8 @@ services:
 - postgresql
 
 before_script:
-- export FLASK_APP=run.py
 - export FLASK_ENV=testing
-- psql -c 'create database send_it;' -U postgres
-- export DATABASE_URL="dbname='send' host='localhost' port='5432' user='postgres' password=''"
+- psql -c 'create database test_send;' -U postgres
 - export DATABASE_URL="dbname='test_send' host='localhost' port='5432' user='postgres' password=''"
 
  script:
