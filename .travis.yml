@@ -1,23 +1,25 @@
 language: python
 
 python:
-  - "3.6"
+
+ - "3.6"
 
 install:
-  - pip install -r requirements.txt
-  - pip install coveralls
+ - pip install -r requirements.txt
+ - pip install coveralls
+ - pip install psycopg2-binary
 
 services:
-  - postgresql
-addons:
-  postgresql: "9.5"
+- postgresql
 
 before_script:
-  - psql -c 'CREATE DATABASE send_test' -U postgres
-  - psql -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to postgres;" -U postgres
+- export FLASK_ENV=testing
+- psql -c 'create database test_send;' -U postgres
+- export DATABASE_URL="dbname='test_send' host='localhost' port='5432' user='postgres' password=''"
 
-script:
+ script:
   - nosetests --with-coverage --cover-package=app
 
-after_success:
-  - coveralls
+after_success: coveralls
+
+
