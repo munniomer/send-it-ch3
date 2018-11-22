@@ -167,6 +167,17 @@ class BaseTest(unittest.TestCase):
     }
 
 
+        self.new_user12 = {
+
+            "first_name": "Abdi",
+            "last_name": "Farah",
+            "username": "Heyss",
+            "email": "Ashasas9@gmail.com",
+            "phone":  3367888
+        }
+
+
+
 
 
     def tearDown(self):

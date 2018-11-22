@@ -96,6 +96,28 @@ class TestUSer(BaseTest):
         self.assertEqual(respon.status_code, 400)
         self.assertIn('That phone exist.Please Choose another one',
                       str(respon.data))
+    
+    def test_if_no_data(self):
+        """Tests if no data is provided"""
+        respon= self.client.post(
+            "/api/v2/auth/signup")
+        self.assertEqual(respon.status_code, 400)
+        self.assertIn('Please provide a json data',
+                      str(respon.data))
+    
+    def test_if_fields_missing(self):
+        """Tests if some fields are missing"""
+        respon=self.client.post(
+            "/api/v2/auth/signup", json=self.new_user12, content_type='application/json')
+        self.assertEqual(respon.status_code, 400)
+        self.assertIn('Some fields are missing',
+                      str(respon.data))
+    
+
+    #   if not request_data:
+    #             return {"message": "Please provide a json data"}, 400
+    #     if not all(key in request_data for key in ["first_name", "last_name", "username", "email", "password","confirm_password","city","role"]):
+    #         return {"message":"Some fields are missing"}
 
 
 
