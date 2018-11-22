@@ -1,11 +1,22 @@
 language: python
-python:
-  - 3.6
-install:
-  - pip install -r requirements.txt
-  - pip install coveralls
-script:
-  - coverage run -m unittest discover && coverage report
 
-after_success:
-  - coveralls
+python:
+ - "3.6"
+
+install:
+ - pip3 install -r requirements.txt
+
+services:
+- postgresql
+
+before_script:
+- psql -c 'create database send_it;' -U postgres
+- export DATABSE_URL="postgresql://muni:muni@localhost:5432/test_send"
+
+
+script: coverage run --source=api -m pytest && coverage report
+
+after_success: coveralls
+
+notifications:
+ email: false
