@@ -6,13 +6,15 @@ class Config():
     DEBUG = False
     TESTING = False
     CSRF_ENABLE = True
-    SECRET_KEY = os.getenv('munira')
+    JWT_SECRET_KEY = os.getenv("SECRET_KEY")
+    DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 class Development(Config):
     """Configurations for Development."""
     DEBUG = True
     TESTING = True
+    DATABASE_URL = os.getenv("DATABASE_send_URL")
 
 
 class Production(Config):
@@ -25,6 +27,7 @@ class Testing(Config):
     """Configurations for Testing, with a separate test database."""
     DEBUG = True
     TESTING = True
+    DATABASE_URL = os.getenv("DATABASE_TEST_URL")
 
 
 app_config = {
