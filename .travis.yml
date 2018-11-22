@@ -1,6 +1,7 @@
 language: python
 
 python:
+
  - "3.6"
 
 install:
@@ -20,4 +21,5 @@ before_script:
   - nosetests --with-coverage --cover-package=app
 
 after_success: coveralls
+
 
