@@ -17,6 +17,11 @@ class SignupResource(Resource):
 
         request_data = request.get_json()
 
+        if not request_data:
+                return {"message": "Please provide a json data"}, 400
+        if not all(key in request_data for key in ["first_name", "last_name", "username", "email", "password","confirm_password","city","role"]):
+            return {"message":"Some fields are missing"},400
+        
         first_name = request_data["first_name"]
         last_name = request_data["last_name"]
         username = request_data["username"]
@@ -26,6 +31,7 @@ class SignupResource(Resource):
         confirm_password = request_data["confirm_password"]
         city = request_data["city"]
         role = request_data["role"]
+
 
         if not validators.valid_email(email):
             return {'message': "Please enter a valid email "}, 400
