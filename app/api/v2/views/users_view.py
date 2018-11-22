@@ -34,7 +34,7 @@ class SignupResource(Resource):
             return {'message': "PLease check if your first_name, last_name  or role is empty or contains numbers"}, 400
 
         if not validators.valid_user_field(city) or not validators.valid_user_field(username):
-            return {'message': "PLease check if  city or username is empty or contains numbers"}, 400
+            return {'message': "PLease check if  city or username is empty"}, 400
 
         if not isinstance(phone, int):
             return {'message': "Please enter a valid phone number "}, 400
@@ -61,5 +61,5 @@ class SignupResource(Resource):
 
         db.add_user(first_name, last_name, username, email, phone,
                     hashpassword, city, role)
-                    
+
         return {"message": "User successfully created"}, 201
