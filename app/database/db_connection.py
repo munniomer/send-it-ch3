@@ -1,33 +1,49 @@
+"""This module holds the database connection settings"""
 import os
 import psycopg2
-"""import the list of tables"""
-from .db_tables import queries
+from config import app_config
+from .db_tables import queries, tablequeries
 
-db_url = os.getenv('DATABASE_URL')
+env = os.getenv("FLASK_ENV")
+db_url = app_config[env].DATABASE_URL
 
 
-def connect_to_db(db_url):
+def connect_to_db():
     """making a connection to the db"""
-
-    return psycopg2.connect(db_url)
-
-
-def initialize_db():
     try:
-        """starting the database"""
         print('Connecting to the PostgreSQL database...')
-        connection = connect_to_db(db_url)
-
-        """activate cursor"""
-        cursor = connection.cursor()  # creating the cursor
-        for query in queries:
-
-            cursor.execute(query)
-
-        connection.commit()  # saves changes to the DB
-        connection.close()
-        cursor.close()
+        return psycopg2.connect(db_url)
 
     except (Exception, psycopg2.Error) as error:
-        print("Not unable to connect to the database")
-        print(error) # returns error when the connectin fails
+        print("Not unable to connect to the database", error)
+
+
+def create_tables():
+    """creating tables for the database"""
+    try:
+        conn = connect_to_db()
+        cursor = conn.cursor()
+        for query in queries:
+            cursor.execute(query)
+        conn.commit()
+
+    except (Exception, psycopg2.Error) as error:
+        print("Not unable to create tables", error)
+    finally:
+        conn.close()
+        cursor.close()
+
+
+def destroy_tables():
+    """Destroying tables for the test database"""
+    try:
+        conn = connect_to_db()
+        cursor = conn.cursor()
+        for table in tablequeries:
+            cursor.execute(table)
+        conn.commit()
+    except (Exception, psycopg2.Error) as error:
+        print("Not unable to destroy tables", error)
+    finally:
+        conn.close()
+        cursor.close()
