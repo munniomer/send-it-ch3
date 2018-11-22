@@ -3,7 +3,6 @@ import os
 import psycopg2
 from config import app_config
 from .db_tables import queries, tablequeries
-
 env = os.getenv("FLASK_ENV")
 db_url = app_config[env].DATABASE_URL
 
@@ -12,7 +11,6 @@ def connect_to_db():
     """making a connection to the db"""
     try:
         print('Connecting to the PostgreSQL database...')
-        print("dddddddddddddddddddd",db_url)
         return psycopg2.connect(db_url)
 
     except (Exception, psycopg2.Error) as error:
