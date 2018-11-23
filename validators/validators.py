@@ -9,6 +9,13 @@ class Validators():
         cursor.execute ("select * from users where email = %s",([email]))
         return cursor.fetchone()
 
+    def check_role(self,sender_Id):
+        """checks if user role"""
+        con = connect_to_db()
+        cursor = con.cursor()
+        cursor.execute ("select role from users where user_id = %s",([sender_Id]))
+        return cursor.fetchone()[0]
+
     def check_username(self,username):
         """checks if username exists"""
         con = connect_to_db()
