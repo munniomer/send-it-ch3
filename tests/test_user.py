@@ -98,7 +98,7 @@ class TestUSer(BaseTest):
                       str(respon.data))
     
     def test_if_no_data(self):
-        """Tests if no data is provided"""
+        """Tests if no data is provided in user signup"""
         respon= self.client.post(
             "/api/v2/auth/signup")
         self.assertEqual(respon.status_code, 400)
@@ -106,17 +106,74 @@ class TestUSer(BaseTest):
                       str(respon.data))
     
     def test_if_fields_missing(self):
-        """Tests if some fields are missing"""
+        """Tests if some fields are missing in user signup"""
         respon=self.client.post(
             "/api/v2/auth/signup", json=self.new_user12, content_type='application/json')
         self.assertEqual(respon.status_code, 400)
         self.assertIn('Some fields are missing',
                       str(respon.data))
+
+    def test_user_login(self):
+        "tests if user can login"
+        self.client.post(
+            "/api/v2/auth/signup", json=self.new_user, content_type='application/json')
+        respon=self.client.post(
+            "/api/v2/auth/login", json=self.new_user14, content_type='application/json')
+
+        self.assertEqual(respon.status_code, 200)
+        self.assertIn('Successfully loged in',
+                      str(respon.data))
+
+
+    def test_valid_data(self):
+        """Tests if no data is provided in user login"""
+        respon= self.client.post(
+            "/api/v2/auth/login")
+        self.assertEqual(respon.status_code, 400)
+        self.assertIn('Please provide a correct json data',
+                      str(respon.data))
     
 
+    def test_missing_field(self):
+        """Tests if some fields are missing in user signup"""
+        respon=self.client.post(
+            "/api/v2/auth/login", json=self.new_user13, content_type='application/json')
+        self.assertEqual(respon.status_code, 400)
+        self.assertIn('Please provide your email and password',
+                      str(respon.data))
 
+    def test_valid_email(self):
+        """Tests if email is valid in user login"""
+        self.client.post(
+            "/api/v2/auth/signup", json=self.new_user, content_type='application/json')
+        respon = self.client.post(
+          "/api/v2/auth/login", json=self.new_user15, content_type='application/json')
+        self.assertEqual(respon.status_code, 400)
+        self.assertIn('email cant be a number',
+                      str(respon.data))
+
+    def test_email_not_exist(self):
+        """Tests if email does not exist in user login"""
+        self.client.post(
+            "/api/v2/auth/signup", json=self.new_user6, content_type='application/json')
+        respon = self.client.post(
+           "/api/v2/auth/login", json=self.new_user14, content_type='application/json')
+        self.assertEqual(respon.status_code, 404)
+        self.assertIn('"That email does not exist. Please register first"',
+                      str(respon.data))
+
+    def test_password__match(self):
+        """Tests if passwords match in user login"""
+        self.client.post(
+            "/api/v2/auth/signup", json=self.new_user, content_type='application/json')
+        respon = self.client.post(
+            "/api/v2/auth/login", json=self.new_user16, content_type='application/json')
+        self.assertEqual(respon.status_code, 400)
+        self.assertIn('Password is incorrect',
+                      str(respon.data))
+
+        
     
-
 
 
 

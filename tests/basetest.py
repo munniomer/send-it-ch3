@@ -15,8 +15,8 @@ class BaseTest(unittest.TestCase):
         self.app = create_app("testing")
         self.app.testing = True
         self.client = self.app.test_client()
-        
-        self.new_user ={
+
+        self.new_user = {
             "first_name": "Abdi",
             "last_name": "Farah",
             "username": "Abdalla",
@@ -26,21 +26,21 @@ class BaseTest(unittest.TestCase):
             "confirm_password": "Abdi",
             "city": "Kisumu",
             "role": "user"
-    }
+        }
 
-        self.new_user1 ={
-        "first_name": "",
-        "last_name": " ",
-        "username": "Abdalla",
-        "email": "Abdi@gmail.com",
-        "phone":  76367888,
-        "password": "Abdi",
-        "confirm_password": "Abdi",
-        "city": "Kisumu",
-        "role": 888
-}
+        self.new_user1 = {
+            "first_name": "",
+            "last_name": " ",
+            "username": "Abdalla",
+            "email": "Abdi@gmail.com",
+            "phone":  76367888,
+            "password": "Abdi",
+            "confirm_password": "Abdi",
+            "city": "Kisumu",
+            "role": 888
+        }
 
-        self.new_user2={
+        self.new_user2 = {
             "first_name": "Abdi",
             "last_name": "Farah",
             "username": " ",
@@ -50,10 +50,9 @@ class BaseTest(unittest.TestCase):
             "confirm_password": "Abdi",
             "city": "",
             "role": "user"
-    }
+        }
 
-
-        self.new_user3={
+        self.new_user3 = {
             "first_name": "Abdi",
             "last_name": "Farah",
             "username": " ",
@@ -63,10 +62,9 @@ class BaseTest(unittest.TestCase):
             "confirm_password": "Abdi",
             "city": "",
             "role": "user"
-    }
+        }
 
-
-        self.new_user4={
+        self.new_user4 = {
             "first_name": "Abdi",
             "last_name": "Farah",
             "username": "Muni",
@@ -76,10 +74,9 @@ class BaseTest(unittest.TestCase):
             "confirm_password": "Abdi",
             "city": "Muni",
             "role": "user"
-    }
+        }
 
-
-        self.new_user5={
+        self.new_user5 = {
             "first_name": "Abdi",
             "last_name": "Farah",
             "username": "Muni",
@@ -89,10 +86,9 @@ class BaseTest(unittest.TestCase):
             "confirm_password": " ",
             "city": "Muni",
             "role": "user"
-    }
+        }
 
-
-        self.new_user6={
+        self.new_user6 = {
             "first_name": "Abdi",
             "last_name": "Farah",
             "username": "Muni",
@@ -102,9 +98,9 @@ class BaseTest(unittest.TestCase):
             "confirm_password": "cd",
             "city": "Muni",
             "role": "user"
-    }
+        }
 
-        self.new_user7 ={
+        self.new_user7 = {
             "first_name": "Abdi",
             "last_name": "Farah",
             "username": "Abda8lla",
@@ -114,10 +110,9 @@ class BaseTest(unittest.TestCase):
             "confirm_password": "Abdi",
             "city": "Kisumu",
             "role": "user"
-    }
+        }
 
-
-        self.new_user8 ={
+        self.new_user8 = {
             "first_name": "Abdi",
             "last_name": "Farah",
             "username": "Hey",
@@ -127,9 +122,9 @@ class BaseTest(unittest.TestCase):
             "confirm_password": "Abdi",
             "city": "Kisumu",
             "role": "user"
-    }
+        }
 
-        self.new_user9 ={
+        self.new_user9 = {
             "first_name": "Abdi",
             "last_name": "Farah",
             "username": "Hey",
@@ -139,10 +134,9 @@ class BaseTest(unittest.TestCase):
             "confirm_password": "Abdi",
             "city": "Kisumu",
             "role": "user"
-    }
+        }
 
-
-        self.new_user10 ={
+        self.new_user10 = {
             "first_name": "Abdi",
             "last_name": "Farah",
             "username": "Heyo",
@@ -152,9 +146,9 @@ class BaseTest(unittest.TestCase):
             "confirm_password": "Abdi",
             "city": "Kisumu",
             "role": "user"
-    }
-        
-        self.new_user11 ={
+        }
+
+        self.new_user11 = {
             "first_name": "Abdi",
             "last_name": "Farah",
             "username": "Hey",
@@ -164,8 +158,7 @@ class BaseTest(unittest.TestCase):
             "confirm_password": "Abdi",
             "city": "Kisumu",
             "role": "user"
-    }
-
+        }
 
         self.new_user12 = {
 
@@ -177,12 +170,33 @@ class BaseTest(unittest.TestCase):
         }
 
 
+        self.new_user13 = {
+
+            "email": "Ashasas9@gmail.com"
+            
+        }
+
+        self.new_user14 = {
+            "email": "Abdi@gmail.com",
+            "password": "Abdi"
+        }
 
 
+        self.new_user15= {
+            "email": 7888,
+            "password": "Abdi"
+        }
+
+
+        self.new_user16 = {
+            "email": "Abdi@gmail.com",
+            "password": "munia"
+        }
 
     def tearDown(self):
         """Destroys the tables during testing"""
         destroy_tables()
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
