@@ -57,3 +57,62 @@ class ParcelResource(Resource):
             return {"message": "Parcel successfully created"}, 201
 
         return {"message": "Orders cannot be created on admin account"}, 400
+
+    @jwt_required
+    def put(self, parcel_id):
+        """ changes the destination of an order"""
+        sender_Id = get_jwt_identity()
+        request_data = request.get_json()
+        if not request_data:
+            return {"message": "Please provide a json data"}, 400
+        destination = request_data["destination"]
+
+        if destination == "":
+            return {"message": "please put the destination"}
+        parcel = db.get_specific_parcel(parcel_id)
+        if not parcel:
+            return {"Message": "Parcel not found"}, 404
+
+        status = parcel["status"]
+        if status == 'cancelled' or status == 'delivered':
+            return {"message": "You can't change the destination of a cancelled or delivered order"}
+        check_role = validate.check_role(sender_Id)
+        role = "user"
+        if check_role == role:
+            db.update_destination(destination, parcel_id)
+            return {"message": "updated destination"}
+        return {"message": "An admin cant update the destination"}, 400
+
+
+class ParcelSpecific(Resource):
+    """ class for specific parcel """
+
+    @jwt_required
+    def get(self, parcel_id):
+        """getting a parcel delivery record by the ID"""
+        parcel = db.get_specific_parcel(parcel_id)
+        if parcel:
+            return {'parcel order': parcel}, 200
+        return {'message': "parcel order not found"}, 404
+
+    @jwt_required
+    def put(self, parcel_id):
+        """ changes the status of an order"""
+        sender_Id = get_jwt_identity()
+        request_data = request.get_json()
+        if not request_data:
+            return {"message": "Please provide a json data"}, 400
+        status = request_data["status"]
+
+        if status == "":
+            return {"message": "please put the status"}
+        parcel = db.get_specific_parcel(parcel_id)
+        if not parcel:
+            return {"Message": "Parcel not found"}, 404
+
+        check_role = validate.check_role(sender_Id)
+        role = "admin"
+        if check_role == role:
+            db.update_status(status, parcel_id)
+            return {"message": "updated destination"}
+        return {"message": "An user cant update the status"}, 400
