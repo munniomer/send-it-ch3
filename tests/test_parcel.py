@@ -75,8 +75,15 @@ class TestParcel(BaseTest):
                       str(respon.data))
 
 
-
-
+    # def test_for_update_parcel(self):
+    #     """Test for chaning the destination of the order"""
+    #     self.client.post("/api/v2/parcel", json=self.new_parcel,headers=self.authorize())
+    #     self.client.post(
+    #         "/api/v1/parcels", json=self.new_parcel, content_type='application/json')
+    #     self.client.put(
+    #         "/api/v1/parcels", json=self.new_parcel, content_type='application/json')
+    #     respon = self.client.get('/api/v2/parcels/1/destination')
+    #     self.assertEqual(respon.status_code, 200)
 
 
 
